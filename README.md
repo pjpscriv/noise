@@ -1,2 +1,2 @@
-# the-noise
+# noise
 How do you make the best internet static?
