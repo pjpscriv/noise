@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Canvas</title>
+	<style type="text/css">
+		html, body {
+			margin: 0px;
+			background-color: #111;
+			width: 100%;
+			height: 100%	
+		}
+		body { overflow: hidden; }
+		#canvas {  }
+	</style>
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+</head>
+
+<body>
+	<canvas id='canvas'></canvas>
+</body>
+<script type="text/javascript">
+	
+
+	async function drawAll() {
+
+		var start = Date.now()
+
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+
+		var w = document.body.clientWidth;
+		var h = document.body.clientHeight;
+
+		canvas.height = h;
+		canvas.width = w;
+
+		console.log(w);
+		console.log(h);
+
+		var pixel = 1;
+		var step = 300;
+		var rest = 0;
+
+
+		// Init Array
+		var unfilled = []
+		for (var j=0;j<h;j+=pixel) {
+			for (var i=0;i<w;i+=pixel) {
+				unfilled.push([i,j]);
+			}
+		}
+
+		console.log("Made array");
+		while (unfilled.length > 0) {
+
+            // Increase rate         
+            // if (rest > 100) {
+	        //     rest = Math.max(rest * 0.75, 0);
+	        // } else {
+	        // 	rest = 0;
+	        // 	step = Math.min(step + 10, 1000)
+	        //     // step = Math.min(step * 1.01, 1000);
+	        // }
+
+			for (k=0; k<step && k<unfilled.length; k++) {
+				var r = Math.floor(Math.random() * unfilled.length);
+				try {
+					var i = unfilled[r][0];
+					var j = unfilled[r][1];
+				} catch (err) {
+					console.error(err)
+					console.error("     at", r, unfilled.length)
+				}
+				ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+				ctx.fillRect(i, j, pixel, pixel);
+				unfilled.splice(r, 1);
+			}
+			await sleep(rest);
+		}
+
+		console.log('done in',Date.now()-start,'ms');
+	}
+	
+
+	function drawStart() {
+		const canvas = document.getElementById('canvas');
+		const ctx = canvas.getContext('2d');
+
+		var w = document.body.clientWidth;
+		var h = document.body.clientHeight;
+
+		canvas.height = h;
+		canvas.width = w;
+
+		console.log(w);
+		console.log(h);
+
+		var p = 2;
+		var i = 0;
+		var j = 0;
+
+		drawStep(ctx,p,i,j,w,h)
+	}
+
+
+	async function drawStep(ctx,p,i,j,w,h) {
+		// Draw
+		ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+		ctx.fillRect(i, j, p, p);
+		await sleep(0);	
+
+		// Recurse
+		if (i<w) {
+			drawStep(ctx,p,i+p,j,w,h);
+		} else if (j<h) {
+			drawStep(ctx,p,0,j+p,w,h);
+		} else {
+			console.log('Done.')
+		}
+	}
+
+
+	function sleep(ms) {
+		return new Promise(resolve => setTimeout(resolve, ms));
+	}
+	
+
+
+
+	window.onresize = drawAll;
+	window.onload = drawAll;
+	window.onclick = drawAll;
+
+</script>
+</html>

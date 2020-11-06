@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ssss</title>
+	<style type="text/css">
+		body {
+			margin: 0px;
+			line-height: 1px;
+			font-size: 1px;
+		}
+
+		span {
+			width:  4px;
+			height: 4px;
+			background-color: black;
+			display: inline-block;
+		}
+
+		#yo {
+			background-color: yellow;
+		}
+
+	</style>
+</head>
+	<body>
+
+	</body>
+	<script type="text/javascript">
+
+		function draw_pix() {
+
+			console.log("loading...");
+
+			var h = document.documentElement.clientHeight;
+			var w = document.documentElement.clientWidth;
+			var t = h * w;
+
+			var pix_size = 10;
+
+			var h_pix = Math.round((h-1)/pix_size);
+			var w_pix = Math.round((w-1)/pix_size);
+
+			console.log("h:", h, h_pix);
+			console.log("w:", w, w_pix);
+			console.log("T:", t, h_pix*w_pix);
+
+			var number_of_pixels = h_pix*w_pix;
+
+
+			var spans = ""
+			for (var i=0; i<number_of_pixels; i++) {
+				var bg = '"background-color: #' + Math.random().toString(16).slice(-6) + ';"';
+				spans += '<span style=' + bg + '></span>';  
+			}
+
+			document.body.innerHTML += spans;
+
+			console.log("done!");
+		}
+
+		// This
+		draw_pix()
+
+	</script>
+	<script type="text/javascript">
+
+		window.addEventListener('resize', function(event){
+			// draw_pix()
+		});
+
+	</script>
+</html>

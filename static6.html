@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Canvas</title>
+    <style type="text/css">
+        html, body {
+            margin: 0px;
+            background-color: #111;
+            width: 100%;
+            height: 100%    
+        }
+        body { overflow: hidden; }
+        #canvas {  }
+    </style>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+</head>
+
+<body>
+    <canvas id='canvas'></canvas>
+</body>
+<script type="text/javascript">
+    
+    function listget(arr, i, def) {
+        if (i < 0 || arr.length <= i) {
+            return def;
+        } else {
+            return arr[i];
+        }
+    }
+
+    async function drawAll() {
+
+        var start = Date.now()
+
+        // Set up Canvas
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set Height, Width to Window Size
+        var w = document.body.clientWidth;
+        var h = document.body.clientHeight;
+        canvas.height = h;
+        canvas.width = w;
+        console.log(w);
+        console.log(h);
+
+        // Pixel Size
+        var pixel = 3;
+        var x, y, c, i = 1;
+        
+
+        // Timing Parameters
+        // Buildup Arrays
+        // Rest decrease
+        var step_l_1 = Array.from({length: 700}, (v,k) => 1)
+        var rest_l_1 = Array.from({length: 700}, (v,k) => 3000/k)
+
+        // var step_l_2 = Array.from({length: 700}, (v,k) => Math.min(0.03*Math.pow(k,2), 10000))
+        // Asymtote shit
+        // var step_l_2 = Array.from({length: 1400}, (v,k) => (-10000/(k-1400)-6))
+        // Cubic
+        var step_l_2 = Array.from({length: 2130}, (v,k) => (0.000001*Math.pow(k,3)))
+        var rest_l_2 = Array.from({length: 700}, (v,k) => 0)
+        // var rest_l = Array.from({length: 10000}, (v,k) => 20)
+
+        var step_l = Array.concat(step_l_1, step_l_2);
+        var rest_l = Array.concat(rest_l_1, rest_l_2);
+
+        // Final Values
+        var step_f = 10000;
+        var rest_f = 0;
+
+        await sleep(1500)
+
+        // Static Loop
+        while (true) {
+            step = listget(step_l, i, step_f)
+            rest = listget(rest_l, i, rest_f)
+            for (k=0; k<step; k++) {
+
+                // Random Location + Color
+                x = Math.floor(Math.random() * w);
+                y = Math.floor(Math.random() * h);
+                c = '#' + Math.random().toString(16).slice(-6);
+
+                // Draw pixel
+                ctx.fillStyle = c;
+                ctx.fillRect(x, y, pixel, pixel);
+
+                // Text
+                if (false) {
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(10,2,w-20,25)
+                    ctx.fillStyle = 'black';
+                    ctx.font = "20px Georgia";
+                    ctx.fillText("step:"+step, 20, 20)
+                    ctx.fillText("rest:"+rest, 200, 20)
+                    ctx.fillText("i:"+i, 600, 20)
+                }
+            }
+            // var now = Date.now()
+            i++;
+            await sleep(rest);
+        }
+    }
+    
+
+    function drawStart() {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        var w = document.body.clientWidth;
+        var h = document.body.clientHeight;
+
+        canvas.height = h;
+        canvas.width = w;
+
+        console.log(w);
+        console.log(h);
+
+        var p = 2;
+        var i = 0;
+        var j = 0;
+
+        drawStep(ctx,p,i,j,w,h)
+    }
+
+
+    async function drawStep(ctx,p,i,j,w,h) {
+        // Draw
+        ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+        ctx.fillRect(i, j, p, p);
+        await sleep(0); 
+
+        // Recurse
+        if (i<w) {
+            drawStep(ctx,p,i+p,j,w,h);
+        } else if (j<h) {
+            drawStep(ctx,p,0,j+p,w,h);
+        } else {
+            console.log('Done.')
+        }
+    }
+
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+
+
+
+    window.onresize = drawAll;
+    window.onload   = drawAll;
+    window.onclick  = drawAll;
+
+</script>
+</html>
