@@ -12,8 +12,8 @@
     }
     
     span {
-      width:  4px;
-      height: 4px;
+      width:  1px;
+      height: 1px;
       display: inline-block;
     }
   </style>
@@ -25,14 +25,20 @@
     
     let h = window.innerHeight;
     let w = window.innerWidth;
-    let pixels = h * w;
-
-    for (let i=0; i < pixels; i++) {
+    let t = h * w;
+    
+    let number_of_pixels = h_pix*w_pix;
+    
+    let spans = ""
+    for (let i=0; i<number_of_pixels; i++) {
       let color = Math.random().toString(16).slice(-6)
       span = `<span style="background-color: #${color};"></span>`;
-      // console.log(`${i} out of ${number_of_pixels}`)
-      document.body.innerHTML += span
+      spans += span
     }
+    
+    document.body.innerHTML += spans;
+    
+    console.log("done!");
   }
   
   noise()
