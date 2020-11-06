@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Attempt 2</title>
+  <style type="text/css">
+    html, body {
+      margin: 0px;
+      background-color: #000000;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id='canvas'></canvas>
+</body>
+
+<script type="text/javascript">
+
+  let h = window.innerHeight;
+  let w = window.innerWidth;
+  
+  async function noise() {
+
+    let start = Date.now()
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    
+    let p = 1;
+    let step = p;
+    
+    for (let y=0; y < h; y+=p) {
+      for (let x=0; x < w; x+=p) {
+        ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+        ctx.fillRect(x, y, 1, 1);
+      }
+
+      if (y % 10 == 0) {
+        await sleep(0);
+      }
+    }
+    console.log(`Done in ${Date.now()-start} ms`);
+  }
+  
+  
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  window.onload   = noise;
+
+  window.onresize = noise;
+  
+  window.onclick  = noise;
+
+</script>
+</html>

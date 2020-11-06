@@ -36,9 +36,7 @@
 
     void main() {
         vec2 st = gl_FragCoord.xy/u_resolution.xy;
-
         float rnd = random( st * u_time );
-
         gl_FragColor = vec4(vec3(rnd),1.0);
     }
 

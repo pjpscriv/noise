@@ -22,23 +22,18 @@
 <script type="text/javascript">
   
   function noise() {
-    
     let h = window.innerHeight;
     let w = window.innerWidth;
-    let t = h * w;
-    
-    let number_of_pixels = h_pix*w_pix;
+    let pixels = h * w;
     
     let spans = ""
-    for (let i=0; i<number_of_pixels; i++) {
+    for (let i=0; i<pixels; i++) {
       let color = Math.random().toString(16).slice(-6)
       span = `<span style="background-color: #${color};"></span>`;
       spans += span
     }
     
     document.body.innerHTML += spans;
-    
-    console.log("done!");
   }
   
   noise()
