@@ -1,6 +1,6 @@
 # Static
 
-### 1. <span>s
+### 1. `<span>`s
 
 ```javascript
 for (var i=0; i<number_of_pixels; i++) {
