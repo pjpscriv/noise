@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Attempt 2</title>
+  <title>Attempt 2.5</title>
   <style type="text/css">
     html, body {
       margin: 0px;
@@ -20,44 +20,41 @@
 
 <script type="text/javascript">
 
-  let h = window.innerHeight;
-  let w = window.innerWidth;
-  
   async function noise() {
+    // let start = Date.now()
 
-    let start = Date.now()
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
+    let h = window.innerHeight;
+    let w = window.innerWidth;
 
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
+    let canvas = document.getElementById('canvas');
+    canvas.height = h;
+    canvas.width = w;
     
-    let p = 1;
-    let step = p;
+    let ctx = canvas.getContext('2d');
     
-    for (let y=0; y < h; y+=p) {
-      for (let x=0; x < w; x+=p) {
-        ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+    for (let y=0; y < h; y+=1) {
+      for (let x=0; x < w; x+=1) {
+        let color = Math.random().toString(16).slice(-6);
+        ctx.fillStyle = '#' + color;
         ctx.fillRect(x, y, 1, 1);
       }
 
       if (y % 10 == 0) {
-        await sleep(0);
+        await drawPixels();
       }
     }
-    console.log(`Done in ${Date.now()-start} ms`);
+    // console.log(`Done in ${Date.now()-start} ms`);
   }
   
   
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  function drawPixels() {
+    return new Promise(resolve => setTimeout(resolve, 0));
   }
   
-  window.onload   = noise;
 
-  window.onresize = noise;
-  
-  window.onclick  = noise;
+  window.onload = noise;
+  window.onclick = noise;
+  window.ontouchstart = noise;
 
 </script>
 </html>

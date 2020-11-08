@@ -1,117 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Canvas</title>
-    <style type="text/css">
-        html, body {
-            margin: 0px;
-            background-color: #111;
-            width: 100%;
-            height: 100%    
-        }
-        body { overflow: hidden; }
-        #canvas {  }
-    </style>
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+  <meta charset="utf-8">
+  <title>Attempt 4</title>
+  <style type="text/css">
+    html, body {
+      margin: 0px;
+      background-color: #111;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
-    <canvas id='canvas'></canvas>
+  <canvas id='canvas'></canvas>
 </body>
 <script type="text/javascript">
+
+  async function noise() {
+    let h = window.innerHeight;
+    let w = window.innerWidth;
     
-
-    async function drawAll() {
-
-        var start = Date.now()
-
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
-        var w = document.body.clientWidth;
-        var h = document.body.clientHeight;
-
-        canvas.height = h;
-        canvas.width = w;
-
-        console.log(w);
-        console.log(h);
-
-        var pixel = 3;
-        var step = 10000;
-        var rest = 0;
-
-
-        var j = Math.floor(Math.random() * h);
-        var i = Math.floor(Math.random() * w);
-        var c = '#' + Math.random().toString(16).slice(-6);
-
-        while (true) {
-
-            for (k=0; k<step; k++) {
-                j = Math.floor(Math.random() * h);
-                i = Math.floor(Math.random() * w);
-                c = '#' + Math.random().toString(16).slice(-6);
-                ctx.fillStyle = c;
-                ctx.fillRect(i, j, pixel, pixel);
-            }
-            var now = Date.now()
-            await sleep(rest);
-        }
-
-        console.log('done in',Date.now()-start,'ms');
-    }
+    let canvas = document.getElementById('canvas');
+    canvas.height = h;
+    canvas.width = w;
     
-
-    function drawStart() {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
-        var w = document.body.clientWidth;
-        var h = document.body.clientHeight;
-
-        canvas.height = h;
-        canvas.width = w;
-
-        console.log(w);
-        console.log(h);
-
-        var p = 2;
-        var i = 0;
-        var j = 0;
-
-        drawStep(ctx,p,i,j,w,h)
-    }
-
-
-    async function drawStep(ctx,p,i,j,w,h) {
-        // Draw
-        ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
-        ctx.fillRect(i, j, p, p);
-        await sleep(0); 
-
-        // Recurse
-        if (i<w) {
-            drawStep(ctx,p,i+p,j,w,h);
-        } else if (j<h) {
-            drawStep(ctx,p,0,j+p,w,h);
-        } else {
-            console.log('Done.')
-        }
-    }
-
-
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    let ctx = canvas.getContext('2d');
     
-
-
-
-    window.onresize = drawAll;
-    window.onload = drawAll;
-    window.onclick = drawAll;
-
+    while (true) {
+      for (let i=0; i<10000; i++) {
+        let x = Math.floor(Math.random() * w);
+        let y = Math.floor(Math.random() * h);
+        let color = '#' + Math.random().toString(16).slice(-6);
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, 1, 1);
+      }
+      await drawPixels();
+    }
+  }
+  
+  
+  function drawPixels() {
+    return new Promise(resolve => setTimeout(resolve, 0));
+  }
+  
+  window.onload = noise;
+  window.onclick = noise;
+  
 </script>
 </html>
