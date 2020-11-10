@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+## Chasing the Noise
 
-You can use the [editor on GitHub](https://github.com/pjpscriv/noise/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+### 1. [`<span>`s](https://pjpscriv.github.io/noise/static1.html)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### 1.5 [Faster `<span>`s](https://pjpscriv.github.io/noise/static1.5.html)
 
-### Markdown
+### 2. [Canvas](https://pjpscriv.github.io/noise/static2.html)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### 2.5 [Canvas line by line](https://pjpscriv.github.io/noise/static2.5.html)
 
-```markdown
-Syntax highlighted code block
+### 3. [Random Canvas](https://pjpscriv.github.io/noise/static3.html)
 
-# Header 1
-## Header 2
-### Header 3
+### 4. [Optimized Random Canvas](https://pjpscriv.github.io/noise/static4.html)
 
-- Bulleted
-- List
+### 4.5 [Best Canvas](https://pjpscriv.github.io/noise/static4.5.html)
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pjpscriv/noise/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### 4.5 [Shaders](https://pjpscriv.github.io/noise/static5.html)

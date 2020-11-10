@@ -9,6 +9,7 @@
       line-height: 1px;
       font-size: 1px;
       background-color: #111;
+      overflow: hidden;
     }
     
     span {
@@ -22,15 +23,22 @@
 <script type="text/javascript">
   
   function noise() {
+    let start = Date.now()
+
     let h = window.innerHeight;
     let w = window.innerWidth;
     let pixels = h * w;
+    let logpoint = Math.floor(pixels / 1000);
+
+    console.log('Start')
 
     for (let i=0; i < pixels; i++) {
       let color = Math.random().toString(16).slice(-6)
       span = `<span style="background-color: #${color};"></span>`;
-      // console.log(`${i} out of ${number_of_pixels}`)
       document.body.innerHTML += span
+      if (i % logpoint == 0) {
+        console.log(`${i}/${pixels} in ${(Date.now()-start) / 1000} sec `)
+      }
     }
   }
   
