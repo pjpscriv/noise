@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Canvas</title>
+  <style type="text/css">
+    html, body {
+      margin: 0px;
+      background-color: #111;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;  
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id='canvas'></canvas>
+</body>
+<script type="text/javascript">
+  
+  
+  async function drawAll() {
+    
+    var start = Date.now()
+    
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    var w = document.body.clientWidth;
+    var h = document.body.clientHeight;
+    
+    canvas.height = h;
+    canvas.width = w;
+    
+    console.log(w);
+    console.log(h);
+    
+    var pixel = 200;
+    var steps = 10;
+    var rest = 0;
+    var center_w = (w - pixel) / 2;
+    var center_h = (h - pixel) / 2;
+    var radius = 200;
+    var tau = 2 * Math.PI
+    // var step = tau / steps;
+    var step = 0.01;
+    
+    var j = Math.floor(Math.random() * h);
+    var i = Math.floor(Math.random() * w);
+    var c = '#' + Math.random().toString(16).slice(-6);
+    
+    
+    var k = 0
+    while (true) {
+      
+      y = center_h + (radius * -Math.cos(k));
+      x = center_w + (radius * Math.sin(k));
+      c = '#' + Math.random().toString(16).slice(-6);
+      ctx.fillStyle = c;
+      ctx.fillRect(x, y, pixel, pixel);
+      
+      var now = Date.now()
+      await sleep(rest);
+      
+      k += step;
+    }
+  }
+  
+  
+  function drawStart() {
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    var w = document.body.clientWidth;
+    var h = document.body.clientHeight;
+    
+    canvas.height = h;
+    canvas.width = w;
+    
+    console.log(w);
+    console.log(h);
+    
+    var p = 2;
+    var i = 0;
+    var j = 0;
+    
+    drawStep(ctx,p,i,j,w,h)
+  }
+  
+  
+  async function drawStep(ctx,p,i,j,w,h) {
+    // Draw
+    ctx.fillStyle = '#' + Math.random().toString(16).slice(-6);
+    ctx.fillRect(i, j, p, p);
+    await sleep(0); 
+    
+    // Recurse
+    if (i<w) {
+      drawStep(ctx,p,i+p,j,w,h);
+    } else if (j<h) {
+      drawStep(ctx,p,0,j+p,w,h);
+    } else {
+      console.log('Done.')
+    }
+  }
+  
+  
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  
+  
+  
+  window.onresize = drawAll;
+  window.onload = drawAll;
+  window.onclick = drawAll;
+  
+</script>
+</html>
