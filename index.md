@@ -15,3 +15,5 @@
 ### 4.5 [Best Canvas](https://pjpscriv.github.io/noise/static4.5.html)
 
 ### 4.5 [Shaders](https://pjpscriv.github.io/noise/static5.html)
+
+### [thebookofshaders.com](https://thebookofshaders.com/)
